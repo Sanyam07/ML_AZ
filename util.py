@@ -157,3 +157,13 @@ class Util:
         run_id = time.strftime("run_ %Y _ %m _ %d %H _ %M _ %S ")
         return os.path.join(root_logdir, run_id)
 
+    @staticmethod
+    def generate_time_series(batch_size, n_steps):
+        freq1, freq2, offset1, offset2 = np.random.rand(4,batch_size,1)
+        time=np.linspace(0,1,n_steps)
+        sin1 = 0.5*np.sin((time-offset1)*(freq1*10+10))
+        sin2 = 0.2*np.sin((time-offset2)*(freq2*20+20))
+        noise = 0.1*np.random.rand()
+        series = sin1 + sin2 + noise
+        return series[...,np.newaxis].astype(np.float32)
+
